@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgencyOS - Sign Up</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#d4e0f8",
+                        "surface-container-highest": "#d8e2ff",
+                        "inverse-primary": "#b2c5ff",
+                        "tertiary-container": "#006477",
+                        "surface-variant": "#d8e2ff",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c3c6d6",
+                        "primary-container": "#0052cc",
+                        "surface-container": "#e9edff",
+                        "primary": "#003d9b",
+                        "on-secondary-fixed": "#101c2d",
+                        "tertiary-fixed-dim": "#48d7f9",
+                        "surface-bright": "#faf9ff",
+                        "on-tertiary-container": "#76e2ff",
+                        "surface": "#faf9ff",
+                        "secondary-fixed": "#d7e3fb",
+                        "on-tertiary-fixed-variant": "#004e5d",
+                        "surface-dim": "#ccdaff",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#051a3e",
+                        "on-secondary-fixed-variant": "#3b475b",
+                        "tertiary-fixed": "#afecff",
+                        "on-surface-variant": "#434654",
+                        "inverse-surface": "#1d3054",
+                        "secondary": "#535f73",
+                        "on-surface": "#051a3e",
+                        "error-container": "#ffdad6",
+                        "outline": "#737685",
+                        "on-tertiary-fixed": "#001f27",
+                        "on-primary-container": "#c4d2ff",
+                        "surface-tint": "#0c56d0",
+                        "surface-container-low": "#f1f3ff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "inverse-on-surface": "#edf0ff",
+                        "tertiary": "#004b59",
+                        "background": "#faf9ff",
+                        "surface-container-high": "#e1e8ff",
+                        "primary-fixed": "#dae2ff",
+                        "on-primary-fixed": "#001848",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#576377",
+                        "secondary-fixed-dim": "#bbc7de",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-margin": "24px",
+                        "component-padding-y": "8px",
+                        "table-cell-padding": "10px",
+                        "component-padding-x": "12px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Inter"],
+                        "h1": ["Inter"],
+                        "tabular-nums": ["Inter"],
+                        "label-md": ["Inter"],
+                        "h3": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h1": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "tabular-nums": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+                        "h3": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background min-h-screen flex text-on-surface antialiased">
+<!-- Split Layout Container -->
+<div class="flex w-full min-h-screen">
+<!-- Left Pane: Branding / Visual (Hidden on mobile) -->
+<div class="hidden lg:flex lg:w-1/2 relative bg-surface-container-highest overflow-hidden">
+<!-- Decorative Image -->
+<img alt="" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60" data-alt="A sophisticated architectural interior of a modern agency office space bathed in cool, cinematic daylight. The composition emphasizes clean structural lines, expansive glass panels, and a minimalist aesthetic typical of high-end corporate environments. A subtle, unified color palette of slate greys, crisp whites, and deep navy blues aligns perfectly with a professional enterprise resource planning platform's identity. The mood is calm, authoritative, and deeply focused on operational clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9lEPLwTr-ds0pt5XQwubusjb71zojjEugXiBOzWLboVW_TQFXtKmSd778HIUuQPfOMmiCRwKZbpeyjKF70CX3mQtR5ju82E1PlilT5DT2JD7s27apnQ4F4S8iicpG7SuFqzgWEH1u0gWX6nAXvae-aVfKYXI6b92YfszYWOeWuI4vmNsIlpTruNoyMnnDY_XZ-zBmf-3vKReXDnhGyrYszOreUXaVgeU8KNaFxe8_S4xDfHG6l5wTO3Rha4uyrKp3IHYXHWmCjQk"/>
+<!-- Branding Overlay -->
+<div class="relative z-10 flex flex-col justify-between p-12 h-full w-full bg-gradient-to-br from-primary/90 to-inverse-surface/95">
+<div class="flex items-center gap-2 text-on-primary">
+<span class="material-symbols-outlined" style="font-size: 28px;">donut_small</span>
+<span class="font-h2 text-h2 tracking-tight">AgencyOS</span>
+</div>
+<div class="max-w-md">
+<h2 class="font-h1 text-h1 text-on-primary mb-4">Command your agency operations from one unified platform.</h2>
+<p class="font-body-md text-body-md text-primary-fixed-dim">Streamline resource allocation, manage campaigns, and maintain total visibility over your client portfolio with our enterprise-grade toolkit.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img alt="Avatar" class="w-8 h-8 rounded-full border border-surface-container-lowest" data-alt="A highly professional headshot of a confident female executive in her early 30s. She is wearing a modern, tailored navy blazer over a crisp white blouse. The lighting is studio-quality, creating soft, flattering shadows that emphasize a trustworthy and capable expression. The background is a clean, neutral soft grey, ensuring the focus remains entirely on her face. The image exudes corporate competence and leadership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAczHe6JdVhYxEAJc1juAbc3Tssa--DAeTToMZGHSJ-NuMwCsCeBTbPt2E0mHsfFqNVmP-cFFCiTKV78CknErpiwcQ_ivbxxryw_EjjETBEDjGdY4Vvbh941sBz4rOjNC6OFZ1zs0MOl_GsaudQZYMQlL0EIqBvpyJodaE7zE7awyZ3vwVSBvGLfaaXubYGuE0bF3jQ3Q9KEJSBo4WNJy8IJL33hdjNSMoad7grGtnD-SU4GwnD2Po4J6PWOG2QGkjCIjzcGQEp8qU"/>
+<img alt="Avatar" class="w-8 h-8 rounded-full border border-surface-container-lowest" data-alt="A highly professional headshot of a mature male director in his late 40s. He wears minimalist dark-rimmed glasses and a tailored charcoal suit jacket. The lighting is crisp and modern, highlighting a subtle, assured smile that suggests deep industry experience and reliability. The background is a smooth, out-of-focus light blue gradient, complementing a corporate and authoritative tone. The overall aesthetic is polished and enterprise-ready." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDG6XQ7wEsiJT2g0BXCOhSThR9bnwiL-M4yBeCCNsrJBIVW1TLEK46P0e-E7qGfnLvvle_1b3ny1Tmk3CeR7XaN5bQyELJ3AZxzOCJBtyXvXr_znrIc7cPqbFJ5HLUDCXop3xmvzED2oMBHe2XXYexR_w3zBYC878B7MonUebqV8tUGMeVAqftDtImLYHlO3IB6U616QlJIlXNueL8ZUYTPd95z0OzCVj4fRcI0jp8ypPlws9rU_Q3RLwpYqf2qpu4sIrfUeo-Fm5Y"/>
+</div>
+<span class="font-body-sm text-body-sm text-primary-fixed-dim">Join 2,000+ top-tier agencies.</span>
+</div>
+</div>
+</div>
+<!-- Right Pane: Form Area -->
+<div class="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 bg-surface-container-lowest">
+<div class="w-full max-w-[400px] flex flex-col">
+<!-- Mobile Logo (Hidden on Desktop) -->
+<div class="flex items-center gap-2 text-primary mb-8 lg:hidden">
+<span class="material-symbols-outlined">donut_small</span>
+<span class="font-h2 text-h2">AgencyOS</span>
+</div>
+<!-- Form Header -->
+<div class="mb-8">
+<h1 class="font-h1 text-h1 text-on-surface mb-2">Create your workspace</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Enter your details to get started with AgencyOS.</p>
+</div>
+<!-- Registration Form -->
+<form class="flex flex-col gap-5">
+<!-- Full Name -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="fullName">Full Name</label>
+<input class="w-full border border-outline-variant bg-surface-container-lowest text-on-surface font-body-md text-body-md px-component-padding-x py-component-padding-y rounded-DEFAULT placeholder:text-outline focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-shadow" id="fullName" placeholder="Jane Doe" type="text"/>
+</div>
+<!-- Agency Email -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="email">Agency Email</label>
+<input class="w-full border border-outline-variant bg-surface-container-lowest text-on-surface font-body-md text-body-md px-component-padding-x py-component-padding-y rounded-DEFAULT placeholder:text-outline focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-shadow" id="email" placeholder="jane@agency.com" type="email"/>
+</div>
+<!-- Password -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="password">Password</label>
+<input class="w-full border border-outline-variant bg-surface-container-lowest text-on-surface font-body-md text-body-md px-component-padding-x py-component-padding-y rounded-DEFAULT placeholder:text-outline focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-shadow" id="password" placeholder="••••••••" type="password"/>
+</div>
+<!-- Role Selection (Segmented Control) -->
+<div class="flex flex-col gap-1 mt-2">
+<label class="font-label-md text-label-md text-on-surface">Account Role</label>
+<div class="flex w-full bg-surface-container border border-outline-variant p-1 rounded-DEFAULT">
+<!-- Admin (Selected State) -->
+<button class="flex-1 flex items-center justify-center gap-2 bg-surface-container-lowest shadow-sm border border-outline-variant rounded-[2px] py-1.5 px-3" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">admin_panel_settings</span>
+<span class="font-label-md text-label-md text-on-surface">Admin</span>
+</button>
+<!-- Employee (Unselected State) -->
+<button class="flex-1 flex items-center justify-center gap-2 rounded-[2px] py-1.5 px-3 text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="font-label-md text-label-md">Employee</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-outline mt-1">Admins can manage billing and invite team members.</p>
+</div>
+<!-- Submit Action -->
+<div class="pt-4 mt-2 border-t border-outline-variant/30">
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary font-label-md text-label-md py-2.5 px-4 rounded-DEFAULT hover:bg-on-primary-fixed-variant transition-colors shadow-sm" type="button">
+                            Complete Registration
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Footer Links -->
+<div class="mt-8 text-center flex flex-col gap-2">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Already have an account? 
+                        <a class="font-label-md text-label-md text-primary hover:underline" href="#">Log in to workspace</a>
+</p>
+<p class="font-body-sm text-body-sm text-outline mt-4">
+                        By signing up, you agree to our <a class="hover:text-on-surface underline" href="#">Terms of Service</a> and <a class="hover:text-on-surface underline" href="#">Privacy Policy</a>.
+                    </p>
+</div>
+</div>
+</div>
+</div>
+</body></html>

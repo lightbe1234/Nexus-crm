@@ -1,0 +1,60 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    function isAdmin() {
+      return request.auth != null && getUserData().role == 'Admin';
+    }
+    function isEmployee() {
+      return request.auth != null && getUserData().role == 'Employee';
+    }
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    match /users/{userId} {
+      allow read: if isAuth();
+      allow write: if isAuth() && request.auth.uid == userId;
+    }
+
+    match /clients/{docId} {
+      allow read: if isAuth();
+      allow write: if isAdmin();
+    }
+
+    match /projects/{docId} {
+      allow read: if isAuth();
+      allow write: if isAdmin();
+    }
+
+    match /tasks/{docId} {
+      allow read: if isAuth();
+      allow create: if isAdmin();
+      allow update: if isAdmin() || isEmployee();
+      allow delete: if isAdmin();
+    }
+
+    match /invoices/{docId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    match /employees/{docId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    match /settings/{docId} {
+      allow read: if isAuth();
+      allow write: if isAdmin();
+    }
+
+    match /activities/{docId} {
+      allow read: if isAuth();
+      allow create: if isAuth();
+    }
+  }
+}

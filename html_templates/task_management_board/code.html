@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Task Board - AgencyFlow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#d4e0f8",
+                    "surface-container-highest": "#d8e2ff",
+                    "inverse-primary": "#b2c5ff",
+                    "tertiary-container": "#006477",
+                    "surface-variant": "#d8e2ff",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c3c6d6",
+                    "primary-container": "#0052cc",
+                    "surface-container": "#e9edff",
+                    "primary": "#003d9b",
+                    "on-secondary-fixed": "#101c2d",
+                    "tertiary-fixed-dim": "#48d7f9",
+                    "surface-bright": "#faf9ff",
+                    "on-tertiary-container": "#76e2ff",
+                    "surface": "#faf9ff",
+                    "secondary-fixed": "#d7e3fb",
+                    "on-tertiary-fixed-variant": "#004e5d",
+                    "surface-dim": "#ccdaff",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#051a3e",
+                    "on-secondary-fixed-variant": "#3b475b",
+                    "tertiary-fixed": "#afecff",
+                    "on-surface-variant": "#434654",
+                    "inverse-surface": "#1d3054",
+                    "secondary": "#535f73",
+                    "on-surface": "#051a3e",
+                    "error-container": "#ffdad6",
+                    "outline": "#737685",
+                    "on-tertiary-fixed": "#001f27",
+                    "on-primary-container": "#c4d2ff",
+                    "surface-tint": "#0c56d0",
+                    "surface-container-low": "#f1f3ff",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#0040a2",
+                    "inverse-on-surface": "#edf0ff",
+                    "tertiary": "#004b59",
+                    "background": "#faf9ff",
+                    "surface-container-high": "#e1e8ff",
+                    "primary-fixed": "#dae2ff",
+                    "on-primary-fixed": "#001848",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#576377",
+                    "secondary-fixed-dim": "#bbc7de",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "container-margin": "24px",
+                    "component-padding-y": "8px",
+                    "table-cell-padding": "10px",
+                    "component-padding-x": "12px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "h2": [
+                            "Inter"
+                    ],
+                    "h1": [
+                            "Inter"
+                    ],
+                    "tabular-nums": [
+                            "Inter"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "h3": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "body-sm": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "h2": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "h1": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "tabular-nums": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.04em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "h3": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-icon {
+          font-variation-settings: 'FILL' 1;
+        }
+        /* Custom Scrollbar for Kanban Columns */
+        .kanban-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .kanban-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .kanban-scroll::-webkit-scrollbar-thumb {
+            background-color: #DFE1E6;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased overflow-hidden h-screen flex">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full py-4 px-3 space-y-1 bg-[#091E42] text-white font-inter text-[13px] font-medium fixed left-0 top-0 w-[240px] z-50 border-r border-slate-700">
+<!-- Header -->
+<div class="flex items-center px-3 mb-6 mt-2">
+<div class="h-8 w-8 rounded-DEFAULT bg-primary-container flex items-center justify-center mr-3 shrink-0">
+<span class="material-symbols-outlined text-on-primary">token</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-black tracking-tighter uppercase text-lg leading-tight">MarketingOS</span>
+<span class="text-slate-400 text-[10px] uppercase tracking-wider">Agency Edition</span>
+</div>
+</div>
+<!-- CTA -->
+<button class="mb-6 mx-3 bg-white/10 hover:bg-white/20 text-white rounded-DEFAULT py-2 px-3 flex items-center justify-center transition-all duration-150 border border-slate-600">
+<span class="material-symbols-outlined text-[18px] mr-2">add_circle</span>
+            Resource Planning
+        </button>
+<!-- Main Nav -->
+<div class="flex-1 overflow-y-auto space-y-1">
+<a class="flex items-center px-3 py-2 rounded-sm text-slate-400 hover:text-white hover:bg-white/10 hover:bg-white/5 transition-all duration-150 scale-100 active:scale-[0.98] transition-transform group" href="#">
+<span class="material-symbols-outlined text-[20px] mr-3 group-hover:text-white transition-colors">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center px-3 py-2 rounded-sm bg-[#0052CC] text-white scale-100 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined fill-icon text-[20px] mr-3">view_kanban</span>
+                Task Board
+            </a>
+<a class="flex items-center px-3 py-2 rounded-sm text-slate-400 hover:text-white hover:bg-white/10 hover:bg-white/5 transition-all duration-150 scale-100 active:scale-[0.98] transition-transform group" href="#">
+<span class="material-symbols-outlined text-[20px] mr-3 group-hover:text-white transition-colors">campaign</span>
+                Campaigns
+            </a>
+<a class="flex items-center px-3 py-2 rounded-sm text-slate-400 hover:text-white hover:bg-white/10 hover:bg-white/5 transition-all duration-150 scale-100 active:scale-[0.98] transition-transform group" href="#">
+<span class="material-symbols-outlined text-[20px] mr-3 group-hover:text-white transition-colors">groups</span>
+                Clients
+            </a>
+<a class="flex items-center px-3 py-2 rounded-sm text-slate-400 hover:text-white hover:bg-white/10 hover:bg-white/5 transition-all duration-150 scale-100 active:scale-[0.98] transition-transform group" href="#">
+<span class="material-symbols-outlined text-[20px] mr-3 group-hover:text-white transition-colors">inventory_2</span>
+                Resources
+            </a>
+<a class="flex items-center px-3 py-2 rounded-sm text-slate-400 hover:text-white hover:bg-white/10 hover:bg-white/5 transition-all duration-150 scale-100 active:scale-[0.98] transition-transform group" href="#">
+<span class="material-symbols-outlined text-[20px] mr-3 group-hover:text-white transition-colors">analytics</span>
+                Reporting
+            </a>
+</div>
+<!-- Footer Nav -->
+<div class="mt-auto pt-4 border-t border-slate-700 space-y-1">
+<a class="flex items-center px-3 py-2 rounded-sm text-slate-400 hover:text-white hover:bg-white/10 hover:bg-white/5 transition-all duration-150 scale-100 active:scale-[0.98] transition-transform group" href="#">
+<span class="material-symbols-outlined text-[20px] mr-3 group-hover:text-white transition-colors">menu_book</span>
+                User Guide
+            </a>
+<a class="flex items-center px-3 py-2 rounded-sm text-slate-400 hover:text-white hover:bg-white/10 hover:bg-white/5 transition-all duration-150 scale-100 active:scale-[0.98] transition-transform group" href="#">
+<span class="material-symbols-outlined text-[20px] mr-3 group-hover:text-white transition-colors">support_agent</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col ml-0 md:ml-[240px] h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex items-center justify-between px-6 h-14 w-full bg-white border-b border-slate-200 font-inter text-sm antialiased shrink-0">
+<!-- Left: Search -->
+<div class="flex-1 flex items-center">
+<div class="relative w-full max-w-md hidden md:flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-slate-400 text-[18px]">search</span>
+<input class="w-full pl-9 pr-12 py-1.5 bg-surface-container-low border-none rounded-DEFAULT text-sm focus:ring-1 focus:ring-primary-container placeholder-slate-500" placeholder="Search tasks, campaigns, clients..." type="text"/>
+<div class="absolute right-2 flex items-center gap-1">
+<kbd class="hidden sm:inline-block border border-slate-300 rounded px-1.5 text-[10px] font-semibold text-slate-500 bg-white">⌘</kbd>
+<kbd class="hidden sm:inline-block border border-slate-300 rounded px-1.5 text-[10px] font-semibold text-slate-500 bg-white">K</kbd>
+</div>
+</div>
+<!-- Mobile Menu Trigger -->
+<button class="md:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-50 rounded-DEFAULT">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="md:hidden ml-2 text-xl font-bold tracking-tight text-[#091E42]">AgencyFlow</span>
+</div>
+<!-- Right: Actions -->
+<div class="flex items-center space-x-2 shrink-0">
+<button class="hidden md:flex items-center justify-center h-8 w-8 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors cursor-pointer active:opacity-80 rounded-full">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="hidden md:flex items-center justify-center h-8 w-8 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors cursor-pointer active:opacity-80 rounded-full">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<button class="hidden md:flex items-center justify-center h-8 w-8 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors cursor-pointer active:opacity-80 rounded-full mr-2">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<div class="h-6 w-px bg-slate-200 hidden md:block mx-1"></div>
+<button class="bg-primary-container text-white px-3 py-1.5 rounded-DEFAULT text-sm font-semibold hover:bg-[#003d9b] transition-colors flex items-center">
+<span class="material-symbols-outlined text-[18px] mr-1">add</span>
+                    Create Task
+                </button>
+<button class="ml-4 flex items-center focus:outline-none">
+<img alt="User Avatar" class="h-8 w-8 rounded-full border border-slate-200 object-cover" data-alt="A small circular profile picture of a professional looking individual, clear bright corporate lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVJb56OgPK45JnG65Ehh2YXBZesl8fm005s4tmwbYNoqAdpAcZz-EiGjqeH-ZFG2E4QMRhhytoFuGmaLHO1PnMFnHhuiWIgAd0ta59VOAkXODymO9RmKcOJDI6ftudXitZZdmICjJtgceLadOQJRF53wVWIsQUId0eiKzr8QSjBvI531hPRJZNIh1_P6KypV2RYaOQJ87Hdy1KgowAUe_7L926qKZmzd_Uz4DK9sTxqAVJ3QjOsxIteHWD31Icj8hWeATyCGYXjGk"/>
+</button>
+</div>
+</header>
+<!-- Page Canvas -->
+<main class="flex-1 flex flex-col min-h-0 bg-[#F4F5F7]">
+<!-- Board Header & Filters -->
+<div class="px-gutter py-4 shrink-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DFE1E6] bg-white">
+<div>
+<nav aria-label="Breadcrumb" class="flex text-sm text-slate-500 mb-1">
+<ol class="inline-flex items-center space-x-1 md:space-x-2">
+<li class="inline-flex items-center">
+<a class="hover:text-slate-900" href="#">Projects</a>
+</li>
+<li>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-[16px] mx-1">chevron_right</span>
+<a class="hover:text-slate-900" href="#">Q3 Marketing Blitz</a>
+</div>
+</li>
+<li aria-current="page">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-[16px] mx-1">chevron_right</span>
+<span class="text-slate-900 font-medium">Task Board</span>
+</div>
+</li>
+</ol>
+</nav>
+<h1 class="font-h1 text-h1 text-[#091E42]">Q3 Marketing Blitz</h1>
+</div>
+<div class="flex items-center space-x-3">
+<div class="flex bg-surface-container-low p-1 rounded-DEFAULT border border-outline-variant">
+<button class="px-3 py-1 text-sm font-medium rounded-sm bg-white shadow-sm border border-slate-200 text-slate-900">All Tasks</button>
+<button class="px-3 py-1 text-sm font-medium rounded-sm text-slate-600 hover:text-slate-900">My Tasks</button>
+</div>
+<button class="flex items-center px-3 py-1.5 text-sm font-medium border border-outline-variant rounded-DEFAULT bg-white text-slate-700 hover:bg-slate-50">
+<span class="material-symbols-outlined text-[18px] mr-1.5">filter_list</span>
+                        Role Filter
+                    </button>
+<div class="h-8 flex -space-x-2 mr-2">
+<img alt="" class="inline-block h-8 w-8 rounded-full ring-2 ring-white" data-alt="Small circular avatar of a team member, warm lighting, professional headshot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDQjgyXehxleQSi3sdV21vctvmYaw5Aq-f7V04pMgudGxzA7DHZ_SFsStPiGuOA4Kz4Ss-MQaaaVVTl9UOpJMjz6iq-O5nKfJBDynytWVwCvXMg8VbCAXYWray9qE4P6oVNFb3hxWf_Sa_bUdMUX5AF6JvwmOe-5El0ethtyYAw5oEECRGgOdbDTZdp1sTYi6OJztSc8jQhyMikwAxHpj_uNkR-WQFeiseg4Z1gZr-Kf1O1iqU62gFvezhsxBGT7no87sPMt-k4fk"/>
+<img alt="" class="inline-block h-8 w-8 rounded-full ring-2 ring-white" data-alt="Small circular avatar of a team member, bright lighting, professional headshot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6GP-ykA-z207GoymYcKbUlCj4o0ywGldtZxZkiGPElHlvzWnEmgJOVSXeDtEef0zrpu4GHksKH_6Owbq4tkQV2oUCFckYz38opP0vP-tu0jGpKc3fjplhaGx2tgXIx92eeYJcY6rlWcndevWoxa-uqGQn_Rld8AQplen3x-dqX8vVPQ1ZnAVfB-ngjv2Kz0iAvkq7wyU2bYPn6Disz3iHn-bgPYrwSEgngqsC2ZTJtA-AAk5tOCV11S59AddEv8rxg6T_9smyIXM"/>
+<img alt="" class="inline-block h-8 w-8 rounded-full ring-2 ring-white" data-alt="Small circular avatar of a team member, neutral lighting, professional headshot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALa-3jBFnXlZCRECcwea9oiZVTp6tr5NosFQQX4Xgj3NxFuLQsJAxiqOSH9VlN_a3V4D82GJzIC1w38Me1cKIQGRS5Iajd5aUizkRex0fwsBP9ToYWIECpa9Y6lO9x65uIGmdCQbGIp5bWJIe5Ucd2dpc6rDjjZuqUZKKBzcQwdh4xSDsazKlSmOQ7IHTdvCCa2wJM5u3T-rkM0W8fVL8z0jXo4tRyU7Dd7O92TOkkm5HGbD6cWZf1DpVOgkR4r6_xhwFdvysOX8M"/>
+<div class="flex h-8 w-8 items-center justify-center rounded-full ring-2 ring-white bg-surface-container-high text-xs font-medium text-slate-600">
+                            +2
+                        </div>
+</div>
+</div>
+</div>
+<!-- Kanban Board Area -->
+<div class="flex-1 overflow-x-auto p-container-margin min-h-0 flex gap-gutter items-start">
+<!-- Column: Backlog -->
+<div class="flex flex-col flex-shrink-0 w-80 max-h-full bg-surface-container-lowest border border-[#DFE1E6] rounded-lg shadow-sm">
+<div class="p-3 border-b border-[#DFE1E6] flex items-center justify-between bg-surface-bright rounded-t-lg">
+<div class="flex items-center gap-2">
+<h2 class="font-h3 text-h3 text-slate-700">Backlog</h2>
+<span class="bg-surface-container text-slate-600 text-xs py-0.5 px-2 rounded-full font-medium">3</span>
+</div>
+<button class="text-slate-400 hover:text-slate-700 p-1 rounded-DEFAULT hover:bg-slate-100">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="p-2 overflow-y-auto kanban-scroll flex-1 space-y-2 bg-[#F4F5F7]/50">
+<!-- Card: Unassigned -->
+<div class="bg-white p-3 rounded-DEFAULT border border-[#DFE1E6] shadow-sm hover:border-slate-300 transition-colors group cursor-grab">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded-sm">Design</span>
+<span class="material-symbols-outlined text-[16px] text-slate-400">low_priority</span>
+</div>
+<h3 class="font-medium text-sm text-[#091E42] mb-3 leading-snug">Draft initial concepts for fall campaign landing page</h3>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-slate-100">
+<div class="flex items-center gap-1 text-slate-500 text-xs">
+<span class="material-symbols-outlined text-[14px]">chat_bubble_outline</span> 2
+                                    <span class="material-symbols-outlined text-[14px] ml-1">attachment</span> 1
+                                </div>
+<button class="text-xs font-medium text-primary-container hover:text-[#003d9b] border border-primary-container/30 hover:bg-primary-container/5 px-2 py-1 rounded-sm transition-colors">
+                                    Pick Task
+                                </button>
+</div>
+</div>
+<!-- Card: Assigned -->
+<div class="bg-white p-3 rounded-DEFAULT border border-[#DFE1E6] shadow-sm hover:border-slate-300 transition-colors group cursor-grab border-l-2 border-l-tertiary-container">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-tertiary-container bg-tertiary-container/10 px-1.5 py-0.5 rounded-sm">Copywriting</span>
+<div class="flex items-center text-amber-500" title="Medium Priority">
+<span class="material-symbols-outlined text-[16px]">horizontal_rule</span>
+</div>
+</div>
+<h3 class="font-medium text-sm text-[#091E42] mb-3 leading-snug">Write ad copy variations for social media</h3>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-slate-100">
+<div class="flex items-center gap-1 text-slate-500 text-xs">
+<span class="material-symbols-outlined text-[14px]">subject</span>
+</div>
+<img alt="Assignee" class="h-6 w-6 rounded-full border border-white shadow-sm" data-alt="Small avatar for assigned user, bright clean corporate styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhUmVJ6iU_7A7TCs9_DPWcwc2AzBzNUDeEEJbwDs_yxLa57FeuH2y4fR0zfYBUEFqMpL_0381Za87BMNmxjGN-Xd2vR7ciddvKglggi3DyeEnZnAZHIpMwt9qxy9gyOmVfe-jZ28lZ14Gs1P23pMrZU424OM3QrPm-Mx33HuLuEfwP5REbK8kcEqWB0LRxj8duoPAzceoxR5h4LwH5TeAyCIJmiVbjra8cLMbt1xXR3j7La866BoeMnC4gWnDCvrsInpTrFxxgmF4" title="Assigned to Sarah"/>
+</div>
+</div>
+<!-- Card: Unassigned -->
+<div class="bg-white p-3 rounded-DEFAULT border border-[#DFE1E6] shadow-sm hover:border-slate-300 transition-colors group cursor-grab">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded-sm">Research</span>
+<span class="material-symbols-outlined text-[16px] text-slate-400">low_priority</span>
+</div>
+<h3 class="font-medium text-sm text-[#091E42] mb-3 leading-snug">Competitor analysis report for Q3</h3>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-slate-100">
+<div class="flex items-center gap-1 text-slate-500 text-xs">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span> Oct 12
+                                </div>
+<button class="text-xs font-medium text-primary-container hover:text-[#003d9b] border border-primary-container/30 hover:bg-primary-container/5 px-2 py-1 rounded-sm transition-colors">
+                                    Pick Task
+                                </button>
+</div>
+</div>
+<!-- Add Task Button -->
+<button class="w-full py-2 flex items-center justify-center text-sm text-slate-500 hover:text-slate-800 hover:bg-slate-200/50 rounded-DEFAULT transition-colors">
+<span class="material-symbols-outlined text-[18px] mr-1">add</span> Add Task
+                        </button>
+</div>
+</div>
+<!-- Column: In Progress -->
+<div class="flex flex-col flex-shrink-0 w-80 max-h-full bg-surface-container-lowest border border-[#DFE1E6] rounded-lg shadow-sm">
+<div class="p-3 border-b border-[#DFE1E6] flex items-center justify-between bg-surface-bright rounded-t-lg border-t-2 border-t-primary-container">
+<div class="flex items-center gap-2">
+<h2 class="font-h3 text-h3 text-slate-700">In Progress</h2>
+<span class="bg-primary-container/10 text-primary-container text-xs py-0.5 px-2 rounded-full font-medium">2</span>
+</div>
+<button class="text-slate-400 hover:text-slate-700 p-1 rounded-DEFAULT hover:bg-slate-100">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="p-2 overflow-y-auto kanban-scroll flex-1 space-y-2 bg-[#F4F5F7]/50">
+<!-- Card: High Priority Assigned -->
+<div class="bg-white p-3 rounded-DEFAULT border border-[#DFE1E6] shadow-sm hover:border-slate-300 transition-colors group cursor-grab border-l-2 border-l-error">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-error bg-error/10 px-1.5 py-0.5 rounded-sm">Development</span>
+<div class="flex items-center text-error" title="High Priority">
+<span class="material-symbols-outlined text-[16px]">keyboard_double_arrow_up</span>
+</div>
+</div>
+<h3 class="font-medium text-sm text-[#091E42] mb-3 leading-snug">Implement new tracking pixel on checkout flow</h3>
+<div class="mb-3">
+<div class="flex justify-between text-[10px] text-slate-500 mb-1">
+<span>Progress</span>
+<span>60%</span>
+</div>
+<div class="w-full bg-slate-100 rounded-full h-1.5">
+<div class="bg-primary-container h-1.5 rounded-full" style="width: 60%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-slate-100">
+<div class="flex items-center gap-1 text-slate-500 text-xs">
+<span class="material-symbols-outlined text-[14px] text-error">calendar_today</span> <span class="text-error font-medium">Today</span>
+</div>
+<img alt="Assignee" class="h-6 w-6 rounded-full border border-white shadow-sm" data-alt="Small avatar for assigned user, bright clean corporate styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEFo967wBdsKRu_7quv8htoSc1-20XEQp9PvW240e82sclNTs9aBjdZzSEDftqVDg3R6WqXCNhsvO-EilQ-aM-RK7FzPvFTx03PTIPZf2z7CXbmA_V0QiL20mJcndypZ0EGG4EnqLC06lxpQ_SXmmTF_a3b5ZOz9dTRnH338ZeWIA1Sq_0GtzcvF8EpTUtH6FZND4KcdUFRUOxrDzOm2yW6F-7YS9mUwsYRg8SXwk0cWpiL4ghY853is-teejRwm98L0b68PyAz1Q" title="Assigned to Mike"/>
+</div>
+</div>
+<!-- Card: Assigned -->
+<div class="bg-white p-3 rounded-DEFAULT border border-[#DFE1E6] shadow-sm hover:border-slate-300 transition-colors group cursor-grab border-l-2 border-l-tertiary-container">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-tertiary-container bg-tertiary-container/10 px-1.5 py-0.5 rounded-sm">Design</span>
+<div class="flex items-center text-amber-500" title="Medium Priority">
+<span class="material-symbols-outlined text-[16px]">horizontal_rule</span>
+</div>
+</div>
+<h3 class="font-medium text-sm text-[#091E42] mb-3 leading-snug">Create banner assets for Google Display Network</h3>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-slate-100">
+<div class="flex items-center gap-1 text-slate-500 text-xs">
+<span class="material-symbols-outlined text-[14px]">attachment</span> 3
+                                    <span class="material-symbols-outlined text-[14px] ml-1">subject</span>
+</div>
+<img alt="Assignee" class="h-6 w-6 rounded-full border border-white shadow-sm" data-alt="Small avatar for assigned user, bright clean corporate styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2N8yovs_J7hDJRoAUh8zQVCIzhW9bDeLkf4yNBBGlNlDIr_6i_k2w-PCMsebeG5mBHweRXPMLwnuyXdUVkKCFi090IQI1x06b1FSzkUh823XTW1n51G7m-68QDjnPnZRCrQtIrEWwsXgnRQFGVsUEgQwse7in-Sze30Ca7Aty_gTgNsWV1Md1IGxn-71a_YHzAqNDfzAYLkNtD-vr5bSjbNEFtHeEr22rP730-c6PphPcbHPgd5Y-jENvNw6_27T2PP5G3gF4mCs" title="Assigned to Alex"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Testing -->
+<div class="flex flex-col flex-shrink-0 w-80 max-h-full bg-surface-container-lowest border border-[#DFE1E6] rounded-lg shadow-sm">
+<div class="p-3 border-b border-[#DFE1E6] flex items-center justify-between bg-surface-bright rounded-t-lg border-t-2 border-t-amber-400">
+<div class="flex items-center gap-2">
+<h2 class="font-h3 text-h3 text-slate-700">Review / Testing</h2>
+<span class="bg-amber-100 text-amber-700 text-xs py-0.5 px-2 rounded-full font-medium">1</span>
+</div>
+<button class="text-slate-400 hover:text-slate-700 p-1 rounded-DEFAULT hover:bg-slate-100">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="p-2 overflow-y-auto kanban-scroll flex-1 space-y-2 bg-[#F4F5F7]/50">
+<!-- Card: Ready for Review -->
+<div class="bg-white p-3 rounded-DEFAULT border border-[#DFE1E6] shadow-sm hover:border-slate-300 transition-colors group cursor-grab border-l-2 border-l-purple-500">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-purple-600 bg-purple-100 px-1.5 py-0.5 rounded-sm">QA</span>
+<div class="flex items-center text-amber-500" title="Medium Priority">
+<span class="material-symbols-outlined text-[16px]">horizontal_rule</span>
+</div>
+</div>
+<h3 class="font-medium text-sm text-[#091E42] mb-3 leading-snug">Verify A/B test setup for email campaign</h3>
+<div class="bg-amber-50 text-amber-700 text-xs p-2 rounded-sm mb-3 border border-amber-200 flex items-start">
+<span class="material-symbols-outlined text-[14px] mr-1 mt-0.5">info</span>
+<span>Awaiting client approval on variant B copy before final launch.</span>
+</div>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-slate-100">
+<div class="flex items-center gap-1 text-slate-500 text-xs">
+<span class="material-symbols-outlined text-[14px]">chat_bubble_outline</span> 5
+                                </div>
+<div class="flex -space-x-1">
+<img alt="Assignee" class="h-6 w-6 rounded-full border border-white shadow-sm z-10" data-alt="Small avatar for assigned user, bright clean corporate styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpPX9kfPPihmUGfC1qRWVJ9zxKqJE4cmq8d6na7Xr9_JeXj-_vqmbZg8gPc3bh9N9fXZOtVgy5wLn5tTWezSmO0EfO7r7Ukj-QOGRb3xAsFsvFGmqAQZ_wWhIK0v61hdFdVkm-TGmi96KOfdYTqmnT81B6a_6_RWUxmjQ6DThAlfvjXFL81aPfrctT-tzrInJCGMeVB0wfvP8Y97x4DlEw1PvmiL9EOmIqhn942C5rDlkVIFRGBk9wFb5sesxZTE50sTkCPlAeWU8" title="Assigned to Sarah"/>
+<img alt="Assignee" class="h-6 w-6 rounded-full border border-white shadow-sm z-0" data-alt="Small avatar for assigned user, bright clean corporate styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB00tlZVhapc6E6jhXCkdBjHaO39kBtqmyYiqG6PL2Y4d2kKNwC0WdNrNFNY_bCOpkHcLsuC-05V48UBAITnHoEl59CnUhcOFf5xIkzRCd-zZvXhbiJuN668byHaw3uNTeZxwOYsCJ6aGyxzXev5rceFcozwv4MaGPUOVOAieuDTiNizJKwBNcUpwYG5I1GBHF43GT8YM3Y5x2Y63iin9k4R00Fukjf-mdVUdHeL5cynaZclyJcz_LoR0zE-qtemHczb7JqO6ckGsw" title="Assigned to Mike"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Done -->
+<div class="flex flex-col flex-shrink-0 w-80 max-h-full bg-surface-container-lowest border border-[#DFE1E6] rounded-lg shadow-sm opacity-80 hover:opacity-100 transition-opacity">
+<div class="p-3 border-b border-[#DFE1E6] flex items-center justify-between bg-surface-bright rounded-t-lg border-t-2 border-t-emerald-500">
+<div class="flex items-center gap-2">
+<h2 class="font-h3 text-h3 text-slate-700">Done</h2>
+<span class="bg-emerald-100 text-emerald-700 text-xs py-0.5 px-2 rounded-full font-medium">12</span>
+</div>
+<button class="text-slate-400 hover:text-slate-700 p-1 rounded-DEFAULT hover:bg-slate-100">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="p-2 overflow-y-auto kanban-scroll flex-1 space-y-2 bg-[#F4F5F7]/50">
+<!-- Card: Done -->
+<div class="bg-slate-50 p-3 rounded-DEFAULT border border-slate-200 shadow-sm cursor-grab border-l-2 border-l-emerald-500">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-200/50 px-1.5 py-0.5 rounded-sm line-through">Strategy</span>
+<span class="material-symbols-outlined text-[16px] text-emerald-500">check_circle</span>
+</div>
+<h3 class="font-medium text-sm text-slate-500 mb-3 leading-snug line-through decoration-slate-300">Finalize budget allocation for Q3</h3>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-slate-200">
+<div class="flex items-center gap-1 text-slate-400 text-xs">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span> Oct 1
+                                </div>
+<img alt="Assignee" class="h-6 w-6 rounded-full border border-white shadow-sm opacity-60" data-alt="Small avatar for assigned user, bright clean corporate styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2hfU_W6vmidUFl7cBZC8jo0CKuhhPNQIgXbqDl7IkOOKGe4J0fvpk-w8PJTFgwD3IWgPl8hltDozrVwpPNpJUnz6FACWNsLXzko9HaGKg2_oikTP9iHYtCdbXlpHNrtTHk1vZMRm0wB6-RXEvtlLSZpFVH9gxncxVflV4uN2Dv4vOGX-uWde1R3rdTzOy9939R3qe-7sQ93paA9D8hvrHUz_Wg16iSHuq9f9UOU9iDbaJazLPv1YxddLv_yIpNR-lkWbaQmFtzTg" title="Assigned to You"/>
+</div>
+</div>
+<!-- Card: Done -->
+<div class="bg-slate-50 p-3 rounded-DEFAULT border border-slate-200 shadow-sm cursor-grab border-l-2 border-l-emerald-500">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-200/50 px-1.5 py-0.5 rounded-sm line-through">Design</span>
+<span class="material-symbols-outlined text-[16px] text-emerald-500">check_circle</span>
+</div>
+<h3 class="font-medium text-sm text-slate-500 mb-3 leading-snug line-through decoration-slate-300">Update logo files in client portal</h3>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-slate-200">
+<div class="flex items-center gap-1 text-slate-400 text-xs">
+<span class="material-symbols-outlined text-[14px]">attachment</span> 4
+                                </div>
+<img alt="Assignee" class="h-6 w-6 rounded-full border border-white shadow-sm opacity-60" data-alt="Small avatar for assigned user, bright clean corporate styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClqFuI0-k3OKJSUFORUNRR62FmiqUzVSFIgynsjK9PndvluDWyBnapxmHp9rn5ITP_NyQbRUOjVM4JEEjZjC7ymDZ_IbT87iTDn3IeUCqrUz31ym5JLH8nBSORd3LfOXz-i_w8A8HNKwCzBuEyjT-EWC-pliAEDfhGVMulppqNz3RUzn8P3__CHblhdBonYKMMYdV7TRXbVuWJn4SpXr9MIICUxuP43YOi36uPfpawzhudvbRVOdPnni8Mrck29KPOwp4Zs60XAdw" title="Assigned to Alex"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Spacer for right padding -->
+<div class="w-4 shrink-0"></div>
+</div>
+</main>
+</div>
+</body></html>
