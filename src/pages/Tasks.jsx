@@ -304,10 +304,10 @@ export default function Tasks() {
       {/* Cinematic Task Detail View */}
       {selectedTask && (
         <div className="modal-overlay">
-          <div className="modal-box max-w-7xl h-auto lg:h-[85vh] flex-col lg:flex-row overflow-y-auto lg:overflow-hidden">
+          <div className="modal-box max-w-[1400px] w-[95vw] h-[95vh] flex-col lg:flex-row overflow-hidden p-0 gap-0 border-none shadow-[0_0_80px_rgba(0,0,0,0.15)]">
             {/* Main Content Pane */}
-            <div className="flex-none lg:flex-1 flex flex-col overflow-visible lg:overflow-hidden bg-white">
-              <div className="p-6 md:p-10 lg:p-16 border-b border-slate-50 bg-slate-50/20 relative shrink-0">
+            <div className="flex-1 flex flex-col overflow-hidden bg-white relative z-10">
+              <div className="p-4 md:p-6 lg:p-8 border-b border-slate-50 bg-slate-50/20 relative shrink-0 sticky top-0 z-20">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 rounded-full blur-[80px] -mr-32 -mt-32"></div>
                 <div className="flex flex-wrap items-center gap-4 mb-8 relative z-10">
                   <div className="flex items-center gap-2 text-[10px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 px-4 py-2 rounded-xl border border-blue-100 shadow-sm">
@@ -321,76 +321,76 @@ export default function Tasks() {
                     <span>{selectedTask.priority} Stratum</span>
                   </div>
                   
-                  <div className="ml-auto flex items-center gap-4">
-                    <button onClick={() => setSelectedTask(null)} className="lg:hidden p-4 bg-white border border-slate-100 text-slate-400 rounded-2xl hover:text-slate-900 transition-all">
-                      <X size={24} strokeWidth={3} />
+                  <div className="flex-1 flex flex-wrap items-center justify-end gap-3">
+                    <button onClick={() => setSelectedTask(null)} className="lg:hidden p-3 bg-white border border-slate-100 text-slate-400 rounded-xl hover:text-slate-900 transition-all shadow-sm">
+                      <X size={20} strokeWidth={3} />
                     </button>
                     {isAdmin && (
-                      <button onClick={(e) => { handleDeleteTask(selectedTask.id); setSelectedTask(null); }} className="p-4 bg-white border border-slate-100 text-rose-500 rounded-2xl hover:bg-rose-50 hover:border-rose-100 transition-all shadow-sm">
-                        <Trash size={20} strokeWidth={3} />
+                      <button onClick={(e) => { handleDeleteTask(selectedTask.id); setSelectedTask(null); }} className="p-3 bg-white border border-slate-100 text-rose-500 rounded-xl hover:bg-rose-50 hover:border-rose-100 transition-all shadow-sm">
+                        <Trash size={18} strokeWidth={3} />
                       </button>
                     )}
                     <div className="relative">
                       <select 
-                        className="appearance-none bg-slate-900 text-white rounded-2xl pl-8 pr-14 py-4 text-[10px] font-black uppercase tracking-widest focus:ring-8 focus:ring-blue-500/10 outline-none cursor-pointer hover:bg-blue-600 transition-all shadow-2xl shadow-slate-900/20"
+                        className="appearance-none bg-slate-900 text-white rounded-xl pl-6 pr-12 py-3 text-[10px] font-black uppercase tracking-widest focus:ring-4 focus:ring-blue-500/10 outline-none cursor-pointer hover:bg-blue-600 transition-all shadow-xl shadow-slate-900/20"
                         value={selectedTask.status}
                         onChange={(e) => updateStatus(selectedTask.id, e.target.value)}
                       >
                         {columns.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}
                       </select>
-                      <ChevronDown size={16} strokeWidth={3} className="absolute right-6 top-1/2 -translate-y-1/2 text-white/50 pointer-events-none" />
+                      <ChevronDown size={14} strokeWidth={3} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 pointer-events-none" />
                     </div>
                   </div>
                 </div>
                 
-                <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter uppercase leading-none mb-6 md:mb-10 relative z-10">
+                <h2 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-tight mb-8 relative z-10 break-words max-w-full">
                   {selectedTask.title}
                 </h2>
                 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 relative z-10">
-                  <div className="flex items-center gap-5 group">
-                    <div className="w-16 h-16 rounded-[1.5rem] bg-slate-900 text-white flex items-center justify-center font-black text-2xl shadow-2xl shadow-slate-900/20 group-hover:rotate-3 transition-transform">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 relative z-10">
+                  <div className="flex items-center gap-5 group min-w-0">
+                    <div className="w-14 h-14 shrink-0 rounded-2xl bg-slate-900 text-white flex items-center justify-center font-black text-2xl shadow-2xl shadow-slate-900/20 group-hover:rotate-3 transition-transform">
                       {getUserInitial(selectedTask.assigneeId)}
                     </div>
-                    <div className="flex flex-col">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Lead Operative</p>
-                      <p className="text-lg font-black text-slate-900 tracking-tighter uppercase">{getUserName(selectedTask.assigneeId)}</p>
+                    <div className="flex flex-col min-w-0">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 leading-tight whitespace-nowrap">Lead Operative</p>
+                      <p className="text-sm md:text-base font-black text-slate-900 tracking-tighter uppercase leading-tight truncate">{getUserName(selectedTask.assigneeId)}</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-5 group">
-                    <div className="w-16 h-16 rounded-[1.5rem] bg-amber-50 text-amber-600 border border-amber-100 flex items-center justify-center shadow-xl shadow-amber-900/5 group-hover:-translate-y-1 transition-transform">
-                      <Calendar size={28} strokeWidth={2.5} />
+                  <div className="flex items-center gap-5 group min-w-0">
+                    <div className="w-14 h-14 shrink-0 rounded-2xl bg-amber-50 text-amber-600 border border-amber-100 flex items-center justify-center shadow-xl shadow-amber-900/5 group-hover:-translate-y-1 transition-transform">
+                      <Calendar size={24} strokeWidth={2.5} />
                     </div>
-                    <div className="flex flex-col">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Target Deadline</p>
-                      <p className="text-lg font-black text-slate-900 tracking-tighter uppercase">{selectedTask.dueDate || 'PENDING'}</p>
+                    <div className="flex flex-col min-w-0">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 leading-tight whitespace-nowrap">Target Deadline</p>
+                      <p className="text-sm md:text-base font-black text-slate-900 tracking-tighter uppercase leading-tight truncate">{selectedTask.dueDate || 'PENDING'}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-5 group">
-                    <div className="w-16 h-16 rounded-[1.5rem] bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shadow-xl shadow-emerald-900/5 group-hover:-translate-y-1 transition-transform">
-                      <Target size={28} strokeWidth={2.5} />
+                  <div className="flex items-center gap-5 group min-w-0">
+                    <div className="w-14 h-14 shrink-0 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shadow-xl shadow-amber-900/5 group-hover:-translate-y-1 transition-transform">
+                      <Target size={24} strokeWidth={2.5} />
                     </div>
-                    <div className="flex flex-col">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Execution Velocity</p>
-                      <p className="text-lg font-black text-slate-900 tracking-tighter uppercase">{selectedTask.progress || 0}% Done</p>
+                    <div className="flex flex-col min-w-0">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 leading-tight whitespace-nowrap">Execution Velocity</p>
+                      <p className="text-sm md:text-base font-black text-slate-900 tracking-tighter uppercase leading-tight truncate">{selectedTask.progress || 0}% Done</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-5 group">
-                    <div className="w-16 h-16 rounded-[1.5rem] bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shadow-xl shadow-blue-900/5 group-hover:-translate-y-1 transition-transform">
-                      <Bell size={28} strokeWidth={2.5} />
+                  <div className="flex items-center gap-5 group min-w-0">
+                    <div className="w-14 h-14 shrink-0 rounded-2xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shadow-xl shadow-blue-900/5 group-hover:-translate-y-1 transition-transform">
+                      <Bell size={24} strokeWidth={2.5} />
                     </div>
-                    <div className="flex flex-col">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Alert Status</p>
-                      <p className="text-lg font-black text-slate-900 tracking-tighter uppercase">NOMINAL</p>
+                    <div className="flex flex-col min-w-0">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 leading-tight whitespace-nowrap">Alert Status</p>
+                      <p className="text-sm md:text-base font-black text-slate-900 tracking-tighter uppercase leading-tight truncate">NOMINAL</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex-none lg:flex-1 overflow-visible lg:overflow-y-auto p-6 md:p-10 space-y-10 custom-scrollbar bg-white">
+              <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 custom-scrollbar bg-white scrollbar-none">
                 <section className="animate-in fade-in slide-in-from-bottom-8 duration-700">
                   <div className="flex items-center gap-4 mb-8">
                     <div className="w-12 h-1 bg-blue-600 rounded-full shadow-[0_0_10px_rgba(37,99,235,0.5)]"></div>
@@ -451,7 +451,7 @@ export default function Tasks() {
             </div>
 
             {/* Tactical Discussion Sidebar */}
-            <div className="w-full lg:w-[480px] shrink-0 bg-slate-50 border-t lg:border-t-0 lg:border-l border-slate-100 flex flex-col overflow-visible lg:overflow-hidden relative">
+            <div className="w-full lg:w-[360px] shrink-0 bg-slate-50 border-t lg:border-t-0 lg:border-l border-slate-100 flex flex-col overflow-hidden relative">
               <div className="p-6 md:p-8 border-b border-slate-200/30 bg-white/50 backdrop-blur-xl flex justify-between items-center relative z-10 shrink-0">
                 <div className="flex items-center gap-5">
                   <div className="w-14 h-14 bg-blue-600 text-white rounded-2xl shadow-xl shadow-blue-600/20 flex items-center justify-center animate-bounce-slow">
@@ -467,17 +467,27 @@ export default function Tasks() {
                 </button>
               </div>
 
-              <div className="flex-none lg:flex-1 overflow-visible lg:overflow-y-auto p-6 md:p-8 space-y-8 custom-scrollbar bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px]">
-                {taskMessages.map((c, i) => (
-                  <div key={c.id || i} className={`flex flex-col group ${c.authorId === currentUser.uid ? 'items-end' : 'items-start'} animate-slide-up`} style={{ animationDelay: `${i * 0.05}s` }}>
-                    <div className="flex items-center gap-3 mb-3 px-2">
-                      {c.authorId !== currentUser.uid && <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />}
-                      <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">{c.author}</span>
-                      <span className="text-[8px] text-slate-300 font-bold uppercase tracking-widest">
-                        {c.createdAt?.toDate ? c.createdAt.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'LOGGING...'}
-                      </span>
+              <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 custom-scrollbar bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:32px_32px] scrollbar-none">
+                {taskMessages.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center py-24 text-slate-300">
+                    <div className="w-24 h-24 rounded-full border-2 border-dashed border-slate-200 flex items-center justify-center mb-6 animate-pulse">
+                      <Activity size={32} strokeWidth={1.5} className="opacity-30" />
                     </div>
-                    <div className="flex items-end gap-3 max-w-[95%]">
+                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] mb-2 text-slate-400">Silent Frequency</h4>
+                    <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-slate-300">Awaiting tactical injection...</p>
+                  </div>
+                ) : (
+                  taskMessages.map((c, i) => (
+                    <div key={c.id || i} className={`flex flex-col group ${c.authorId === currentUser.uid ? 'items-end' : 'items-start'} animate-in fade-in slide-in-from-bottom-4 duration-500`} style={{ animationDelay: `${i * 0.05}s` }}>
+                      <div className="flex items-center gap-3 mb-4 px-2">
+                        <div className={`w-1.5 h-1.5 rounded-full ${c.authorId === currentUser.uid ? 'bg-slate-900' : 'bg-blue-600'} shadow-[0_0_8px_rgba(37,99,235,0.4)]`} />
+                        <span className="text-[9px] font-black text-slate-900 uppercase tracking-widest leading-none">{c.author}</span>
+                        <div className="w-1 h-1 rounded-full bg-slate-200" />
+                        <span className="text-[8px] text-slate-400 font-bold uppercase tracking-widest">
+                          {c.createdAt?.toDate ? c.createdAt.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'SYNCHRONIZING'}
+                        </span>
+                      </div>
+                      <div className="flex items-end gap-4 max-w-[95%]">
                       {c.authorId === currentUser.uid && (
                         <button onClick={() => deleteTaskMessage(c.id)} className="opacity-0 group-hover:opacity-100 p-2 text-slate-300 hover:text-rose-500 transition-all mb-2">
                           <Trash size={14} strokeWidth={3} />
@@ -510,7 +520,8 @@ export default function Tasks() {
                       </div>
                     </div>
                   </div>
-                ))}
+                  ))
+                )}
               </div>
 
               <div className="p-6 bg-white border-t border-slate-100 space-y-6 shadow-[0_-20px_50px_rgba(0,0,0,0.03)] relative z-10 shrink-0">

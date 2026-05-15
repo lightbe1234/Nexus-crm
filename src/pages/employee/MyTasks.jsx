@@ -259,7 +259,7 @@ export default function MyTasks() {
       {/* Mission Detail Overlay */}
       {selectedTask && (
         <div className="modal-overlay">
-          <div className="modal-box max-w-6xl w-full max-h-[90vh] flex-col lg:flex-row overflow-hidden p-0 gap-0">
+          <div className="modal-box max-w-[1400px] w-[95vw] max-h-[92vh] flex-col lg:flex-row overflow-hidden p-0 gap-0">
             {/* Left Content Area */}
             <div className="flex-1 flex flex-col bg-white overflow-hidden relative z-10">
               <div className="p-6 md:p-8 border-b border-slate-50 bg-slate-50/30 shrink-0 sticky top-0 z-10">
@@ -275,25 +275,25 @@ export default function MyTasks() {
                     <X size={20} strokeWidth={3} />
                   </button>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter leading-tight mb-6">{selectedTask.title}</h2>
+                <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter leading-tight mb-6 break-words max-w-full">{selectedTask.title}</h2>
                 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                   <div className="flex items-center gap-4 group">
                     <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600 border border-amber-100 shadow-xl shadow-amber-900/5 group-hover:scale-110 transition-transform">
                       <Calendar size={20} strokeWidth={2.5} />
                     </div>
-                    <div>
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Induction Date</p>
-                      <p className="text-sm font-black text-slate-900">{selectedTask.dueDate || 'Registry Pending'}</p>
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 break-words">Induction Date</p>
+                      <p className="text-sm font-black text-slate-900 break-words">{selectedTask.dueDate || 'Registry Pending'}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 group">
                     <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 border border-emerald-100 shadow-xl shadow-emerald-900/5 group-hover:scale-110 transition-transform">
                       <Activity size={20} strokeWidth={2.5} />
                     </div>
-                    <div>
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Efficiency tier</p>
-                      <p className="text-sm font-black text-slate-900">{selectedTask.progress || 0}% Finalized</p>
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 break-words">Efficiency tier</p>
+                      <p className="text-sm font-black text-slate-900 break-words">{selectedTask.progress || 0}% Finalized</p>
                     </div>
                   </div>
                 </div>
