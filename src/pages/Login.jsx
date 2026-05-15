@@ -8,17 +8,20 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.message);
+      setError(err.message.replace('Firebase: ', '').replace(/\(auth\/.*\)/, '').trim());
+      setLoading(false);
     }
   };
 
@@ -76,8 +79,9 @@ export default function Login() {
           
           <form className="space-y-6" onSubmit={handleLogin}>
             {error && (
-              <div className="p-4 bg-rose-50 border border-rose-100 text-rose-600 rounded-2xl text-sm font-bold">
-                {error}
+              <div className="p-4 bg-rose-50 border border-rose-100 text-rose-600 rounded-2xl text-sm font-bold flex items-start gap-3">
+                <span className="mt-0.5 shrink-0">⚠</span>
+                <span>{error}</span>
               </div>
             )}
             
@@ -126,10 +130,20 @@ export default function Login() {
             {/* Submit Button */}
             <button 
               type="submit" 
-              className="w-full py-4 mt-2 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 transition-all flex items-center justify-center gap-2 shadow-xl shadow-slate-900/10 active:scale-95"
+              disabled={loading}
+              className="w-full py-4 mt-2 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 transition-all flex items-center justify-center gap-2 shadow-xl shadow-slate-900/10 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Authenticate
-              <ArrowRight size={18} strokeWidth={3} />
+              {loading ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Authenticating...
+                </>
+              ) : (
+                <>
+                  Authenticate
+                  <ArrowRight size={18} strokeWidth={3} />
+                </>
+              )}
             </button>
           </form>
           

@@ -5,25 +5,32 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    font-size: 93.75%; /* Slight zoom-out: 15px base instead of 16px for large screens */
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-[#F8FAFC] text-slate-900 font-sans antialiased overflow-x-hidden;
+    @apply bg-[#F8FAFC] text-slate-900 font-sans antialiased overflow-x-hidden selection:bg-blue-100 selection:text-blue-700;
     font-family: 'Outfit', sans-serif;
   }
 }
 
 @layer components {
+  /* Premium ERP Cards */
   .premium-card {
-    @apply bg-white border border-slate-200/60 rounded-[40px] shadow-sm hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500;
+    @apply bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:border-blue-400/30 hover:-translate-y-1;
   }
 
+  /* Custom Scrollbars - Institutional Minimalist */
   .custom-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: #E2E8F0 transparent;
+    scrollbar-color: #cbd5e1 transparent;
   }
 
   .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
@@ -31,11 +38,11 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
+    @apply bg-slate-300/50 rounded-full hover:bg-blue-400/50 transition-colors duration-500;
   }
 
   .custom-scrollbar-dark::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
   }
 
   .custom-scrollbar-dark::-webkit-scrollbar-track {
@@ -43,21 +50,118 @@
   }
 
   .custom-scrollbar-dark::-webkit-scrollbar-thumb {
-    @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+    @apply bg-white/10 rounded-full hover:bg-blue-500/40 transition-colors;
+  }
+
+  /* Loading Skeletons - High Fidelity */
+  .shimmer {
+    @apply relative overflow-hidden bg-slate-50 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/80 before:to-transparent;
+  }
+
+  /* Standard Inputs - Modern Ergonomic */
+  .erp-input {
+    @apply w-full bg-slate-50/50 border border-slate-200/60 rounded-2xl px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-900 outline-none focus:ring-8 focus:ring-blue-500/5 focus:bg-white focus:border-blue-400 transition-all duration-300 placeholder:text-slate-400;
+  }
+
+  .erp-select {
+    @apply w-full bg-slate-50/50 border border-slate-200/60 rounded-2xl px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-900 outline-none focus:ring-8 focus:ring-blue-500/5 focus:bg-white focus:border-blue-400 transition-all duration-300 cursor-pointer appearance-none;
+  }
+
+  /* Buttons - Institutional Tier */
+  .btn-primary {
+    @apply px-8 py-4 bg-slate-900 text-white rounded-2xl hover:bg-blue-600 transition-all duration-500 font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-slate-900/10 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-4 bg-white border border-slate-200 text-slate-600 rounded-2xl hover:bg-slate-50 hover:border-slate-300 transition-all duration-500 font-black text-[10px] uppercase tracking-[0.2em] shadow-sm active:scale-95;
   }
 }
 
-/* Animations */
-.animate-in {
-  animation: fadeIn 0.5s ease-out forwards;
+/* Keyframes */
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Glassmorphism utility */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Animation Utilities */
+.animate-slide-up { animation: slideInUp 0.5s ease-out forwards; }
+.animate-slide-right { animation: slideInRight 0.5s ease-out forwards; }
+.animate-zoom { animation: zoomIn 0.3s ease-out forwards; }
+
 .glass {
   @apply bg-white/70 backdrop-blur-md border border-white/20;
+}
+
+.glass-dark {
+  @apply bg-slate-900/80 backdrop-blur-lg border border-slate-800/50;
+}
+
+/* ============================
+   Modal System
+   ============================
+   overlay: full-screen dimmed backdrop
+   modal-box: the white card — fixed max-w and max-h
+   modal-body: the scrollable inner region
+*/
+.modal-overlay {
+  @apply fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/50 backdrop-blur-sm;
+}
+
+.modal-box,
+.modal-box-sm,
+.modal-box-md,
+.modal-box-lg,
+.modal-box-xl {
+  @apply relative bg-white rounded-3xl shadow-2xl w-full border border-slate-100 flex flex-col overflow-hidden animate-zoom;
+  max-height: min(90vh, 780px);
+}
+
+.modal-box     { max-width: 640px; }
+.modal-box-sm  { max-width: 480px; }
+.modal-box-md  { max-width: 640px; }
+.modal-box-lg  { max-width: 860px; }
+.modal-box-xl  { max-width: 1100px; }
+
+/* Scrollable modal body: only this region scrolls */
+.modal-body {
+  @apply flex-1 overflow-y-auto p-6 sm:p-8;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+.modal-body::-webkit-scrollbar { width: 4px; }
+.modal-body::-webkit-scrollbar-track { background: transparent; }
+.modal-body::-webkit-scrollbar-thumb { @apply bg-slate-200 rounded-full; }
+
+/* Pulse for Live Updates */
+.live-pulse {
+  @apply relative;
+}
+.live-pulse::after {
+  content: '';
+  @apply absolute -top-1 -right-1 w-2 h-2 bg-emerald-500 rounded-full animate-ping;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  @apply w-1.5 h-1.5;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
 }

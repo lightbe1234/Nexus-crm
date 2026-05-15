@@ -2,17 +2,34 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import TopNav from './TopNav';
+import { SidebarProvider, useSidebar } from '../contexts/SidebarContext';
 
-export default function Layout() {
+function LayoutInner() {
+  const { collapsed, isHidden } = useSidebar();
+  const sidebarW = isHidden ? 0 : (collapsed ? 72 : 280);
+
   return (
-    <div className="bg-[#F8FAFC] min-h-screen text-slate-900 font-inter antialiased overflow-x-hidden">
+    <div className="bg-[#F8FAFC] h-screen overflow-hidden text-slate-900 antialiased">
       <Sidebar />
-      <div className="ml-[260px]">
+      <div
+        className="h-screen flex flex-col overflow-hidden transition-all duration-300"
+        style={{ marginLeft: sidebarW }}
+      >
         <TopNav />
-        <main className="mt-20 p-10 min-h-[calc(100vh-80px)] max-w-[1400px] mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <Outlet />
+        <main className="flex-1 overflow-y-auto overflow-x-hidden pt-20 custom-scrollbar">
+          <div className="p-8 max-w-[1600px] mx-auto animate-in fade-in duration-300">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>
+  );
+}
+
+export default function Layout() {
+  return (
+    <SidebarProvider>
+      <LayoutInner />
+    </SidebarProvider>
   );
 }

@@ -42,8 +42,9 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Employees can now read their own profile document (doc ID == their UID)
     match /employees/{docId} {
-      allow read: if isAdmin();
+      allow read: if isAdmin() || (isAuth() && request.auth.uid == docId);
       allow write: if isAdmin();
     }
 
@@ -55,6 +56,20 @@ service cloud.firestore {
     match /activities/{docId} {
       allow read: if isAuth();
       allow create: if isAuth();
+    }
+
+    // Attendance: employees manage only their own records; admins manage all
+    match /attendance/{docId} {
+      allow read: if isAdmin() || (isAuth() && resource.data.uid == request.auth.uid);
+      allow create: if isAuth() && request.resource.data.uid == request.auth.uid;
+      allow update: if isAuth() && resource.data.uid == request.auth.uid;
+      allow delete: if isAdmin();
+    }
+
+    // Performance: read own or admin; only admin can write (computed server-side or admin panel)
+    match /performance/{docId} {
+      allow read: if isAdmin() || (isAuth() && resource.data.uid == request.auth.uid);
+      allow write: if isAdmin();
     }
   }
 }

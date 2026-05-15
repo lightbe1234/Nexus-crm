@@ -1,12 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { getSettings, initSettings } from '../services/db';
 import { defaultSettings } from './defaultSettings';
+import { useAuth } from '../contexts/AuthContext';
 
 const SettingsContext = createContext();
 
 export const useSettings = () => useContext(SettingsContext);
 
 export const SettingsProvider = ({ children }) => {
+  const { currentUser } = useAuth();
   const [settings, setSettings] = useState(defaultSettings);
   const [loading, setLoading] = useState(true);
 
@@ -26,8 +28,12 @@ export const SettingsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    refreshSettings();
-  }, []);
+    if (currentUser) {
+      refreshSettings();
+    } else {
+      setLoading(false);
+    }
+  }, [currentUser]);
 
   return (
     <SettingsContext.Provider value={{ settings, loading, refreshSettings }}>
