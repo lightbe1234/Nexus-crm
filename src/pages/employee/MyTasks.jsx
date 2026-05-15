@@ -165,10 +165,10 @@ export default function MyTasks() {
         </div>
       </div>
 
-      {/* Task Matrix List */}
+      {/* Task Matrix Grid - High Density Architecture */}
       {loading ? (
-        <div className="space-y-4">
-          {[1,2,3].map(i => <div key={i} className="h-28 bg-slate-50 rounded-[2rem] animate-pulse border border-slate-100" />)}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          {[1,2,3,4].map(i => <div key={i} className="h-44 bg-slate-50 rounded-[2.5rem] animate-pulse border border-slate-100" />)}
         </div>
       ) : filtered.length === 0 ? (
         <div className="premium-card p-24 text-center group border-dashed">
@@ -179,7 +179,7 @@ export default function MyTasks() {
           <p className="text-xs font-bold text-slate-500">No mission directives matching your current configuration.</p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
           {filtered.map((task, idx) => {
             const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() && task.status !== 'Done';
             const sc = statusConfig[task.status] || statusConfig['To Do'];
@@ -256,10 +256,10 @@ export default function MyTasks() {
         </div>
       )}
 
-      {/* Mission Detail Overlay */}
+      {/* Mission Detail Overlay - Cinematic Tier */}
       {selectedTask && (
         <div className="modal-overlay">
-          <div className="modal-box max-w-[1400px] w-[95vw] h-[95vh] flex-col lg:flex-row overflow-hidden p-0 gap-0 border-none shadow-[0_0_80px_rgba(0,0,0,0.15)]">
+          <div className="modal-box-cinematic flex-col lg:flex-row shadow-[0_0_100px_rgba(0,0,0,0.2)]">
             {/* Left Content Area */}
             <div className="flex-1 flex flex-col bg-white overflow-hidden relative z-10">
               <div className="p-6 md:p-8 border-b border-slate-50 bg-slate-50/30 shrink-0 sticky top-0 z-10">

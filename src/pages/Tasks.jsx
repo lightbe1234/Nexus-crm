@@ -252,15 +252,15 @@ export default function Tasks() {
         </div>
       </div>
 
-      {/* Modern Kanban Board */}
-      <div className="flex-1 overflow-x-auto overflow-y-hidden custom-scrollbar px-8 pb-8">
-        <div className="flex gap-6 h-full min-w-max">
+      {/* Modern Kanban Board - One Screen Architecture */}
+      <div className="flex-1 overflow-y-hidden px-8 pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 h-full">
           {columns.map((col, idx) => {
             const colTasks = filteredTasks.filter(t => t.status === col.name);
             return (
               <div 
                 key={col.name} 
-                className="w-80 flex flex-col h-full rounded-[2rem] bg-slate-100/50 border border-slate-200/50 group/column transition-all"
+                className="flex flex-col h-full rounded-[2.5rem] bg-slate-100/40 border border-slate-200/50 group/column transition-all hover:bg-slate-100/60"
               >
                 {/* Fixed Column Header */}
                 <div className="sticky top-0 z-20 flex justify-between items-center px-6 py-5 bg-slate-100/80 backdrop-blur-md rounded-t-[2rem] border-b border-slate-200/50">
@@ -304,7 +304,7 @@ export default function Tasks() {
       {/* Cinematic Task Detail View */}
       {selectedTask && (
         <div className="modal-overlay">
-          <div className="modal-box max-w-[1400px] w-[95vw] h-[95vh] flex-col lg:flex-row overflow-hidden p-0 gap-0 border-none shadow-[0_0_80px_rgba(0,0,0,0.15)]">
+          <div className="modal-box-cinematic flex-col lg:flex-row shadow-[0_0_100px_rgba(0,0,0,0.2)]">
             {/* Main Content Pane */}
             <div className="flex-1 flex flex-col overflow-hidden bg-white relative z-10">
               <div className="p-4 md:p-6 lg:p-8 border-b border-slate-50 bg-slate-50/20 relative shrink-0 sticky top-0 z-20">
