@@ -254,7 +254,7 @@ export default function Tasks() {
 
       {/* Modern Kanban Board - One Screen Architecture */}
       <div className="flex-1 overflow-y-hidden px-8 pb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 h-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-full">
           {columns.map((col, idx) => {
             const colTasks = filteredTasks.filter(t => t.status === col.name);
             return (

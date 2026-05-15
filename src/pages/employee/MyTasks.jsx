@@ -167,7 +167,7 @@ export default function MyTasks() {
 
       {/* Task Matrix Grid - High Density Architecture */}
       {loading ? (
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {[1,2,3,4].map(i => <div key={i} className="h-44 bg-slate-50 rounded-[2.5rem] animate-pulse border border-slate-100" />)}
         </div>
       ) : filtered.length === 0 ? (
@@ -179,7 +179,7 @@ export default function MyTasks() {
           <p className="text-xs font-bold text-slate-500">No mission directives matching your current configuration.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {filtered.map((task, idx) => {
             const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() && task.status !== 'Done';
             const sc = statusConfig[task.status] || statusConfig['To Do'];
