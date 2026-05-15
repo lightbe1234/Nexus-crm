@@ -19,7 +19,7 @@ const Countdown = ({ deadline }) => {
       const now = new Date().getTime();
       const target = new Date(deadline).getTime();
       const diff = target - now;
-      if (diff <= 0) { setTimeLeft('EXPIRED'); clearInterval(timer); return; }
+      if (isNaN(target) || diff <= 0) { setTimeLeft('EXPIRED'); clearInterval(timer); return; }
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -80,13 +80,14 @@ export default function Tasks() {
 
   const handleSaveTask = async (e) => {
     if (e) e.preventDefault();
+    if (!currentUser) { setFormError('You must be logged in to create tasks.'); return; }
     if (!newTask.title?.trim()) { setFormError('Task title is required.'); return; }
     if (!newTask.projectId) { setFormError('Please select a project.'); return; }
     setSaving(true);
     setFormError('');
     try {
       if (editingTask) { await updateTask(editingTask, { ...newTask }); }
-      else { await addTask({ ...newTask, creatorId: currentUser.uid, createdAt: new Date().toISOString() }); }
+      else { await addTask({ ...newTask, creatorId: currentUser?.uid || 'unknown', createdAt: new Date().toISOString() }); }
       setShowModal(false); setEditingTask(null);
       setNewTask({ title: '', projectId: '', assigneeId: '', status: 'To Do', priority: 'Medium', description: '', dueDate: '', dueTime: '', progress: 0, comments: [], review: '' });
     } catch (err) {
@@ -198,7 +199,7 @@ export default function Tasks() {
           </div>
           <div className="flex flex-col">
             <span className="text-[10px] font-bold text-slate-700 truncate max-w-[80px]">
-              {getUserName(task.assigneeId).split(' ')[0]}
+              {getUserName(task.assigneeId)?.split(' ')[0]}
             </span>
           </div>
         </div>
@@ -215,7 +216,7 @@ export default function Tasks() {
   );
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden bg-[#F8FAFC]">
+    <div className="bg-[#F8FAFC]">
       {/* Institutional Header */}
       <div className="shrink-0 px-8 py-8 space-y-6">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
@@ -253,17 +254,17 @@ export default function Tasks() {
       </div>
 
       {/* Modern Kanban Board - One Screen Architecture */}
-      <div className="flex-1 overflow-y-hidden px-8 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-full">
+      <div className="px-6 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {columns.map((col, idx) => {
             const colTasks = filteredTasks.filter(t => t.status === col.name);
             return (
               <div 
                 key={col.name} 
-                className="flex flex-col h-full rounded-[2.5rem] bg-slate-100/40 border border-slate-200/50 group/column transition-all hover:bg-slate-100/60"
+                className="flex flex-col rounded-[2.5rem] bg-slate-100/40 border border-slate-200/50 group/column transition-all hover:bg-slate-100/60"
               >
-                {/* Fixed Column Header */}
-                <div className="sticky top-0 z-20 flex justify-between items-center px-6 py-5 bg-slate-100/80 backdrop-blur-md rounded-t-[2rem] border-b border-slate-200/50">
+                {/* Column Header */}
+                <div className="flex justify-between items-center px-6 py-4 bg-slate-100/80 backdrop-blur-md rounded-t-[2.5rem] border-b border-slate-200/50">
                   <div className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-lg ${col.bg} ${col.color} flex items-center justify-center shadow-sm`}>
                       <col.icon size={16} strokeWidth={3} />
@@ -281,7 +282,7 @@ export default function Tasks() {
                 </div>
                 
                 {/* Scrollable Card List */}
-                <div className="flex-1 overflow-y-auto p-4 custom-scrollbar space-y-1">
+                <div className="p-4 custom-scrollbar space-y-1">
                   {colTasks.map((t, i) => (
                     <div key={t.id} className="animate-slide-up" style={{ animationDelay: `${(idx * 4 + i) * 0.05}s` }}>
                       {renderCard(t)}

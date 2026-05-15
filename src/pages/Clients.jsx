@@ -128,7 +128,7 @@ export default function Clients() {
   ];
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden bg-[#F8FAFC]">
+    <div className="bg-[#F8FAFC]">
       {/* Institutional Header */}
       <div className="shrink-0 px-10 py-10 space-y-10">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10">
@@ -182,128 +182,81 @@ export default function Clients() {
         </div>
       </div>
 
-      {/* Main Registry Table */}
-      <div className="flex-1 px-10 pb-10 overflow-hidden">
-        <div className="h-full premium-card flex flex-col bg-white overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.04)]">
-          <div className="flex-1 overflow-auto custom-scrollbar">
-            <table className="w-full text-left border-separate border-spacing-0">
-              <thead className="sticky top-0 z-20">
-                <tr className="bg-slate-50/90 backdrop-blur-md">
-                  <th className="py-8 px-10 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] border-b border-slate-100">Identity</th>
-                  <th className="py-8 px-10 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] border-b border-slate-100">Market Sector</th>
-                  <th className="py-8 px-10 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] border-b border-slate-100">Primary Liaison</th>
-                  <th className="py-8 px-10 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] border-b border-slate-100 text-center">Protocol State</th>
-                  <th className="py-8 px-10 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] border-b border-slate-100 text-right">Retainer Allocation</th>
-                  {isAdmin && <th className="py-8 px-10 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] border-b border-slate-100 text-center w-40">Command</th>}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {loading ? (
-                  [1,2,3,4,5,6].map(i => (
-                    <tr key={i} className="animate-pulse">
-                      <td colSpan={isAdmin ? 6 : 5} className="py-10 px-10"><div className="h-12 bg-slate-50 rounded-2xl w-full" /></td>
-                    </tr>
-                  ))
-                ) : filteredClients.length > 0 ? filteredClients.map((client, idx) => {
-                  const sc = statusConfig[client.status] || statusConfig.Lead;
-                  return (
-                    <tr 
-                      key={client.id || idx} 
-                      onClick={() => setSelectedClient(client)}
-                      className="hover:bg-slate-50/80 transition-all group cursor-pointer animate-slide-up" 
-                      style={{ animationDelay: `${idx * 0.05}s` }}
-                    >
-                      <td className="py-8 px-10">
-                        <div className="flex items-center gap-6">
-                          <div className="w-16 h-16 rounded-[1.5rem] bg-slate-900 text-white flex items-center justify-center font-black text-2xl shadow-2xl shadow-slate-900/20 group-hover:scale-110 transition-all duration-500">
-                            {client.name?.[0]?.toUpperCase() || '?'}
-                          </div>
-                          <div className="space-y-1.5">
-                            <p className="font-black text-slate-900 tracking-tighter group-hover:text-blue-600 transition-colors uppercase text-base">{client.name}</p>
-                            <span className="text-[9px] font-black text-slate-400 uppercase bg-slate-100/50 px-3 py-1.5 rounded-lg leading-none tracking-[0.2em] border border-slate-100">UID-{client.id?.slice(-8).toUpperCase()}</span>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="py-8 px-10">
-                        <div className="flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center border border-indigo-100/50">
-                            <Building2 size={18} strokeWidth={2.5} />
-                          </div>
-                          <span className="text-xs font-black text-slate-600 uppercase tracking-tighter">{client.industry || 'Global Sector'}</span>
-                        </div>
-                      </td>
-                      <td className="py-8 px-10">
-                        <div className="space-y-1.5">
-                          <p className="text-xs font-black text-slate-900 tracking-tight uppercase">{client.contactName || '—'}</p>
-                          <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest italic">{client.contactRole || 'Institutional Lead'}</p>
-                        </div>
-                      </td>
-                      <td className="py-8 px-10 text-center">
-                        <div className={`inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest border ${sc.bg} ${sc.text} ${sc.border} shadow-sm shadow-slate-900/5`}>
-                          <span className={`w-2 h-2 rounded-full ${sc.dot} ${client.status === 'Onboarding' ? 'animate-ping' : ''} shadow-[0_0_10px_rgba(0,0,0,0.1)]`} />
-                          {client.status}
-                        </div>
-                      </td>
-                      <td className="py-8 px-10 text-right">
-                        <p className="text-lg font-black text-slate-900 tracking-tighter">
+      {/* High-Density Strategic Grid - One Screen Architecture */}
+      <div className="px-10 pb-10">
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {[1,2,3,4,5,6,7,8].map(i => (
+              <div key={i} className="h-64 erp-card animate-pulse bg-white/50 rounded-[2.5rem]" />
+            ))}
+          </div>
+        ) : filteredClients.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredClients.map((client, idx) => {
+              const sc = statusConfig[client.status] || statusConfig.Lead;
+              return (
+                <div 
+                  key={client.id || idx}
+                  onClick={() => setSelectedClient(client)}
+                  className="premium-card p-6 group cursor-pointer hover:bg-slate-900 transition-all duration-500 relative overflow-hidden"
+                >
+                  {/* Decorative background element */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full -mr-16 -mt-16 group-hover:bg-blue-600/20 transition-all duration-700" />
+                  
+                  <div className="relative z-10 flex flex-col h-full">
+                    <div className="flex justify-between items-start mb-6">
+                      <div className="w-16 h-16 rounded-2xl bg-slate-900 group-hover:bg-white/10 text-white flex items-center justify-center text-2xl font-black shadow-lg transition-colors">
+                        {client.name?.[0]?.toUpperCase() || '?'}
+                      </div>
+                      <div className={`px-4 py-2 rounded-xl border ${sc.bg} ${sc.text} ${sc.border} text-[9px] font-black uppercase tracking-widest shadow-sm`}>
+                        {client.status}
+                      </div>
+                    </div>
+
+                    <div className="space-y-1 mb-8">
+                      <h3 className="text-xl font-black text-slate-900 group-hover:text-white tracking-tighter uppercase truncate transition-colors">
+                        {client.name}
+                      </h3>
+                      <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 group-hover:text-slate-300 uppercase tracking-widest">
+                        <Building2 size={12} />
+                        <span className="truncate">{client.industry || 'Global Sector'}</span>
+                      </div>
+                    </div>
+
+                    <div className="mt-auto pt-6 border-t border-slate-100/50 group-hover:border-white/10 flex justify-between items-center">
+                      <div className="space-y-1">
+                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Retainer</p>
+                        <p className="text-lg font-black text-slate-900 group-hover:text-white tracking-tighter transition-colors">
                           {sym}{(client.retainer || 0).toLocaleString()}
                         </p>
-                      </td>
-                      {isAdmin && (
-                        <td className="py-8 px-10" onClick={e => e.stopPropagation()}>
-                          <div className="flex justify-center items-center gap-3 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
-                            <button 
-                              onClick={(e) => openEdit(client, e)}
-                              className="w-12 h-12 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-white rounded-xl transition-all border border-transparent hover:border-blue-100 shadow-xl shadow-slate-900/5"
-                            >
-                              <Edit2 size={18} strokeWidth={3} />
-                            </button>
-                            <button 
-                              onClick={(e) => { e.stopPropagation(); setConfirmDelete(client); }}
-                              className="w-12 h-12 flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-white rounded-xl transition-all border border-transparent hover:border-rose-100 shadow-xl shadow-slate-900/5"
-                            >
-                              <Trash2 size={18} strokeWidth={3} />
-                            </button>
-                          </div>
-                        </td>
-                      )}
-                    </tr>
-                  );
-                }) : (
-                  <tr>
-                    <td colSpan={isAdmin ? 6 : 5} className="py-48 text-center bg-white">
-                      <div className="flex flex-col items-center justify-center space-y-8 max-w-sm mx-auto">
-                        <div className="w-32 h-32 bg-slate-50 rounded-[3rem] shadow-2xl shadow-slate-200/50 flex items-center justify-center text-slate-200 border border-white animate-bounce-slow">
-                          <Building2 size={56} strokeWidth={1} />
-                        </div>
-                        <div className="space-y-3">
-                          <p className="text-lg font-black uppercase tracking-[0.3em] text-slate-900 tracking-tighter leading-none">Portfolio Vacuum Detected</p>
-                          <p className="text-xs font-medium text-slate-400 italic tracking-tight leading-relaxed px-6">
-                            Operational registry is currently devoid of institutional partnerships. Await onboarding directive.
-                          </p>
-                        </div>
                       </div>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                      <div className="w-10 h-10 rounded-xl bg-slate-50 group-hover:bg-white/10 flex items-center justify-center text-slate-400 group-hover:text-white transition-all group-hover:translate-x-1">
+                        <ChevronRight size={18} strokeWidth={3} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-          
-          <div className="p-10 bg-slate-50/50 flex justify-between items-center border-t border-slate-100">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Displaying {filteredClients.length} Institutional Entities</p>
-            <button className="group text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 hover:text-blue-700 transition-all flex items-center gap-4 bg-white px-8 py-4 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-300">
-              Expand Registry Matrix
-              <ChevronRight size={18} strokeWidth={3} className="group-hover:translate-x-2 transition-transform" />
-            </button>
+        ) : (
+          <div className="premium-card p-48 text-center bg-white/50 border-dashed border-2">
+            <div className="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center text-slate-300 mx-auto mb-8">
+              <Building2 size={48} strokeWidth={1} />
+            </div>
+            <h3 className="text-2xl font-black text-slate-900 tracking-tighter uppercase mb-4">Registry Empty</h3>
+            <p className="text-slate-500 font-medium italic">No institutional entities found in current directory.</p>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Cinematic Client Detail View */}
       {selectedClient && (
-        <div className="modal-overlay">
-          <div className="modal-box max-w-[1500px] w-[98vw] h-[96vh] flex-col lg:flex-row overflow-hidden p-0 gap-0 border-none shadow-[0_0_100px_rgba(0,0,0,0.2)] animate-in zoom-in-95 duration-500">
+        <div className="modal-overlay" onClick={() => setSelectedClient(null)}>
+          <div 
+            className="modal-box-cinematic flex-col lg:flex-row" 
+            onClick={e => e.stopPropagation()}
+          >
             {/* Main Content Pane */}
             <div className="flex-1 flex flex-col overflow-hidden bg-white relative z-10">
               <div className="p-10 md:p-14 border-b border-slate-50 bg-slate-50/30 relative shrink-0 sticky top-0 z-20">
@@ -322,7 +275,7 @@ export default function Clients() {
                   </div>
                   
                   <div className="flex-1 flex flex-wrap items-center justify-end gap-5">
-                    <button onClick={() => setSelectedClient(null)} className="lg:hidden p-5 bg-white border border-slate-100 text-slate-400 rounded-[2rem] hover:text-slate-900 transition-all shadow-xl shadow-slate-200/50">
+                    <button onClick={() => setSelectedClient(null)} className="p-5 bg-white border border-slate-100 text-slate-400 rounded-[2rem] hover:text-slate-900 transition-all shadow-xl shadow-slate-200/50">
                       <X size={28} strokeWidth={3} />
                     </button>
                     {isAdmin && (
@@ -334,7 +287,7 @@ export default function Clients() {
                 </div>
                 
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-12 mb-16 relative z-10">
-                  <div className="w-32 h-32 md:w-44 md:h-44 rounded-[3.5rem] bg-slate-900 text-white flex items-center justify-center font-black text-5xl md:text-7xl shadow-[0_40px_80px_rgba(0,0,0,0.15)] animate-bounce-slow shrink-0 border-[8px] border-white">
+                  <div className="w-32 h-32 md:w-44 md:h-44 rounded-[3.5rem] bg-slate-900 text-white flex items-center justify-center font-black text-5xl md:text-7xl shadow-[0_40px_80px_rgba(0,0,0,0.15)] shrink-0 border-[8px] border-white">
                     {selectedClient.name?.[0]?.toUpperCase() || '?'}
                   </div>
                   <div className="space-y-4 min-w-0">
@@ -450,7 +403,7 @@ export default function Clients() {
             <div className="w-full lg:w-[480px] shrink-0 bg-slate-50 border-t lg:border-t-0 lg:border-l border-slate-100 flex flex-col overflow-hidden relative">
               <div className="p-12 border-b border-slate-200/30 bg-white/50 backdrop-blur-3xl flex justify-between items-center relative z-10 shrink-0">
                 <div className="flex items-center gap-8">
-                  <div className="w-20 h-20 bg-blue-600 text-white rounded-[2rem] shadow-[0_30px_60px_rgba(37,99,235,0.3)] flex items-center justify-center animate-bounce-slow">
+                  <div className="w-20 h-20 bg-blue-600 text-white rounded-[2rem] shadow-[0_30px_60px_rgba(37,99,235,0.3)] flex items-center justify-center">
                     <Shield size={36} strokeWidth={2.5} />
                   </div>
                   <div>
@@ -458,9 +411,6 @@ export default function Clients() {
                     <p className="text-[12px] font-black text-slate-400 uppercase tracking-[0.4em]">High-Value Asset Oversight</p>
                   </div>
                 </div>
-                <button onClick={() => setSelectedClient(null)} className="hidden lg:block p-6 bg-white border border-slate-100 text-slate-300 hover:text-slate-900 rounded-[2.5rem] transition-all hover:shadow-2xl">
-                  <X size={32} strokeWidth={3} />
-                </button>
               </div>
 
               <div className="flex-1 overflow-y-auto p-12 space-y-10 custom-scrollbar scrollbar-none">
@@ -508,12 +458,6 @@ export default function Clients() {
                   <p className="text-base font-medium italic text-slate-300 leading-relaxed relative z-10 tracking-tight">
                     "Institutional partner consistently demonstrates high operational alignment. Retainer yield is optimized for current market cycle."
                   </p>
-                  <div className="mt-8 flex items-center gap-6 relative z-10">
-                    <div className="flex -space-x-3">
-                      {[1,2,3].map(i => <div key={i} className="w-10 h-10 rounded-full bg-slate-800 border-4 border-slate-900 flex items-center justify-center text-[10px] font-black">OP</div>)}
-                    </div>
-                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Active Oversight Team</span>
-                  </div>
                 </div>
               </div>
             </div>

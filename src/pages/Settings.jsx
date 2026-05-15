@@ -276,7 +276,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="h-screen flex flex-col space-y-6 overflow-hidden pb-6">
+    <div className="space-y-8 bg-[#F8FAFC] p-8">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 px-1">
         <div>
@@ -307,7 +307,7 @@ export default function Settings() {
         </div>
       )}
 
-      <div className="flex-1 flex gap-6 items-start px-1 overflow-hidden">
+      <div className="flex gap-8 items-start">
         {/* Sidebar Tabs */}
         <div className="w-64 space-y-2 shrink-0">
           {tabs.map(tab => (
@@ -338,7 +338,7 @@ export default function Settings() {
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col overflow-hidden">
+        <div className="flex-1 bg-white border border-slate-200 rounded-[2rem] shadow-sm flex flex-col overflow-hidden mb-10">
           <div className="p-6 border-b border-slate-100 flex items-center gap-4 bg-slate-50/50">
             <div className="p-3 bg-white shadow-sm rounded-xl text-blue-600 border border-slate-100">
               {React.createElement(tabs.find(t => t.id === activeTab)?.icon || SettingsIcon, { size: 24 })}
@@ -349,7 +349,7 @@ export default function Settings() {
             </div>
           </div>
           
-          <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
+          <div className="p-8">
             {renderTabContent()}
           </div>
         </div>

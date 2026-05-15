@@ -128,7 +128,7 @@ export default function Projects() {
     <div 
       key={project.id} 
       onClick={() => setSelectedProject(project)}
-      className="premium-card p-6 mb-5 cursor-pointer hover:border-blue-500 group relative overflow-hidden transition-all duration-500 hover:shadow-[0_20px_50px_rgba(37,99,235,0.1)] animate-slide-up bg-white/80 backdrop-blur-xl border-slate-100"
+      className="premium-card p-5 mb-4 cursor-pointer hover:border-blue-500 group relative overflow-hidden transition-all duration-500 hover:shadow-[0_20px_50px_rgba(37,99,235,0.1)] animate-slide-up bg-white/80 backdrop-blur-xl border-slate-100"
     >
       <div className={`absolute top-0 left-0 w-2 h-full transition-all duration-500 group-hover:w-3 ${
         project.status === 'Completed' ? 'bg-emerald-500 shadow-[4px_0_15px_rgba(16,185,129,0.3)]' : 
@@ -199,7 +199,7 @@ export default function Projects() {
   );
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden bg-[#F8FAFC]">
+    <div className="bg-[#F8FAFC]">
       {/* Page Header */}
       <div className="shrink-0 px-8 py-8 space-y-6">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
@@ -237,17 +237,17 @@ export default function Projects() {
       </div>
 
       {/* Wide Kanban Board */}
-      <div className="flex-1 overflow-x-auto overflow-y-hidden custom-scrollbar px-10 pb-10">
-        <div className="flex gap-8 h-full min-w-max">
+      <div className="px-6 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {columns.map((col, idx) => {
             const colProjects = filteredProjects.filter(p => p.status === col.name);
             return (
               <div 
                 key={col.name} 
-                className="w-[480px] shrink-0 flex flex-col h-full rounded-[3.5rem] bg-slate-100/40 border border-slate-200/40 group/column transition-all hover:bg-slate-100/60"
+                className="flex flex-col rounded-[2.5rem] bg-slate-100/40 border border-slate-200/40 group/column transition-all hover:bg-slate-100/60"
               >
-                {/* Fixed Header */}
-                <div className="sticky top-0 z-20 flex justify-between items-center px-12 py-10 bg-slate-100/90 backdrop-blur-xl rounded-t-[3.5rem] border-b border-slate-200/50">
+                {/* Column Header */}
+                <div className="flex justify-between items-center px-8 py-6 bg-slate-100/90 backdrop-blur-xl rounded-t-[2.5rem] border-b border-slate-200/50">
                   <div className="flex items-center gap-4">
                     <div className={`w-10 h-10 rounded-2xl ${col.bg} ${col.color} flex items-center justify-center shadow-lg border ${col.border}`}>
                       <col.icon size={20} strokeWidth={3} />
@@ -265,7 +265,7 @@ export default function Projects() {
                 </div>
                 
                 {/* Scrollable List */}
-                <div className="flex-1 overflow-y-auto p-4 custom-scrollbar space-y-1">
+                <div className="p-4 custom-scrollbar space-y-1">
                   {colProjects.map((p, i) => (
                     <div key={p.id} className="animate-slide-up" style={{ animationDelay: `${(idx * 4 + i) * 0.05}s` }}>
                       {renderCard(p)}

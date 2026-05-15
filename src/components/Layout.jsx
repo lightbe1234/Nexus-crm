@@ -15,8 +15,8 @@ function LayoutInner() {
         className="h-screen flex flex-col overflow-hidden transition-all duration-300"
         style={{ marginLeft: sidebarW }}
       >
-        <TopNav />
-        <main className="flex-1 overflow-y-auto overflow-x-hidden pt-20 custom-scrollbar">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar">
+          <TopNav />
           <div className="p-8 max-w-[1600px] mx-auto animate-in fade-in duration-300">
             <Outlet />
           </div>

@@ -10,8 +10,7 @@ export default function TopNav() {
 
   return (
     <header
-      className="fixed top-0 right-0 h-16 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 flex justify-between items-center px-6 transition-all duration-300"
-      style={{ left: sidebarW }}
+      className="w-full h-16 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 flex justify-between items-center px-6 transition-all duration-300"
     >
       {/* Left side: Hamburger + Search */}
       <div className="flex items-center gap-4 flex-1 max-w-md">
