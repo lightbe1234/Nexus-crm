@@ -259,7 +259,7 @@ export default function MyTasks() {
       {/* Mission Detail Overlay */}
       {selectedTask && (
         <div className="modal-overlay">
-          <div className="modal-box max-w-[1400px] w-[95vw] max-h-[92vh] flex-col lg:flex-row overflow-hidden p-0 gap-0">
+          <div className="modal-box max-w-[1400px] w-[95vw] h-[95vh] flex-col lg:flex-row overflow-hidden p-0 gap-0 border-none shadow-[0_0_80px_rgba(0,0,0,0.15)]">
             {/* Left Content Area */}
             <div className="flex-1 flex flex-col bg-white overflow-hidden relative z-10">
               <div className="p-6 md:p-8 border-b border-slate-50 bg-slate-50/30 shrink-0 sticky top-0 z-10">
@@ -299,7 +299,7 @@ export default function MyTasks() {
                 </div>
               </div>
 
-              <div className="modal-body flex-1 overflow-y-auto p-6 md:p-8 space-y-8">
+              <div className="modal-body flex-1 overflow-y-auto p-4 md:p-6 space-y-6 scrollbar-none">
                 <section className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-1.5 h-6 bg-blue-600 rounded-full"></div>
@@ -396,7 +396,7 @@ export default function MyTasks() {
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px]">
+              <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px] scrollbar-none">
                 {taskMessages.map((c, i) => (
                   <div key={c.id || i} className={`flex flex-col group ${c.authorId === currentUser.uid ? 'items-end' : 'items-start'} animate-in slide-in-from-bottom-2 duration-300`}>
                     <div className="flex items-center gap-2 mb-2 px-1">
